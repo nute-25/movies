@@ -53,34 +53,35 @@ class MoviesController extends AppController {
         $this->set(compact('new'));
     }
 
-    /*
+
     public function edit($id) {
-        $citation = $this->Movies->get($id);
+        $movie = $this->Movies->get($id);
 
         // on autorise la methode put pour la modification
         if ($this->request->is(['post', 'put'])) {
             // en ne stockant pas le patchEntity dans une variable, il redonne seulement les champs qui ont été modifiés
-            $this->Movies->patchEntity($citation, $this->request->getData());
-            if($this->Movies->save($citation)) {
+            $this->Movies->patchEntity($movie, $this->request->getData());
+            if($this->Movies->save($movie)) {
                 $this->Flash->success('Ok');
 
                 // redirige vers la page de cette citation
-                return $this->redirect(['action' => 'view', $citation->id]);
+                return $this->redirect(['action' => 'view', $movie->id]);
             }
             $this->Flash->error('Modif plantée');
         }
 
         //envoie la variable à la vue
-        $this->set(compact('citation'));
+        $this->set(compact('movie'));
     }
+
 
     public function delete($id) {
         $this->request->allowMethod(['post', 'delete']);
 
         // on récupère l'élément ciblé
-        $quote = $this->Movies->get($id);
+        $movie = $this->Movies->get($id);
 
-        if($this->Movies->delete($quote)) {
+        if($this->Movies->delete($movie)) {
             $this->Flash->success('Supprimé');
             return $this->redirect(['action' => 'index']);
         } else {
@@ -88,5 +89,5 @@ class MoviesController extends AppController {
             // redirige vers la page de cette citation
             return $this->redirect(['action' => 'view', $id]);
         }
-    } */
+    } 
 }
