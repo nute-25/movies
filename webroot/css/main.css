@@ -21,7 +21,8 @@ header {
 header h1 {
     padding: 20px;
     color: #fff;
-    background: #444;
+    background: rgb(164, 204, 182);
+    border-bottom: 2px solid #000;
 }
 header h1 a{
     color: #fff;
@@ -42,9 +43,13 @@ nav span{
     font-size: 0.9rem;
     border-top: 1px solid #ccc;
 }
+nav a {
+    border-bottom: 2px solid #000;
+}
 nav a.active{
     color: #fff;
-    background: #444;
+    border-top: 2px solid rgb(164, 204, 182);
+    border-bottom: 2px solid rgb(164, 204, 182);
 }
 main > h1:first-child{
     font-size: 2rem;

@@ -39,6 +39,29 @@ class MoviesController extends AppController {
             // patchEntity recupére les données saisies par l'user dans le form et de l'envoyer vers l'objet Movies puis la BDD
             //on met les données de l'utilisateur dans l'objet $new
             $new = $this->Movies->patchEntity($new, $this->request->getData());
+
+            // si le fichier correspond à l'un des types autorisés
+            if(in_array($this->request->data['poster']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
+                
+                // recupere l'extension qui était utilisée
+                $ext = pathinfo($this->request->getData('poster')['name'], PATHINFO_EXTENSION);
+                // création du nouveau nom
+                $name = 'a-'.rand(0,3000).'-'.time().'.'.$ext;
+
+                // reconstitution du chemin global du fichier
+                $adress = WWW_ROOT.'/data/posters/'.$name;
+
+                // valeur a enregistrer dans la base
+                $new->poster = $name;
+
+                // on le deplace de la mémoire temporaire vers l'emplacement souhaité
+                move_uploaded_file($this->request->getData('poster')['tmp_name'], $adress);
+
+            } else {
+                $new->poster = null;
+                $this->Flash->error('Ce format de fichier n\'est pas autorisé');
+            }
+
             // si la sauvegarde fonctionne, on confirme et on redirige vers la liste globale des citations
             if($this->Movies->save($new)) {
                 // les messages flash sont enregistrés en mémoire tant qu'ils ne sont pas affichés sur une page
@@ -114,4 +137,14 @@ class MoviesController extends AppController {
         }
         
     } 
+
+
+    public function random() {
+        //selectionne l'ensemble des données de la table movies et les range par ordre aléatoire, puis sélectionne le premier élément de la liste
+        $random = $this->Movies->find('all')->order('rand()')->limit(1)->first();
+        $id = $random->id;
+
+        // redirige vers la vue qui va bien
+        return $this->redirect(['action' => 'view', $id]);
+    }
 }
