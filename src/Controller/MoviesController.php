@@ -4,6 +4,8 @@
 // espace logique auquel appartient le controller
 namespace App\Controller;
 
+use Cake\Http\Exception\NotFoundException;
+
 class MoviesController extends AppController {
 
     public function hello() {
@@ -75,7 +77,7 @@ class MoviesController extends AppController {
     }
 
 
-    public function delete($id) {
+    /* public function delete($id) {
         $this->request->allowMethod(['post', 'delete']);
 
         // on récupère l'élément ciblé
@@ -89,5 +91,27 @@ class MoviesController extends AppController {
             // redirige vers la page de cette citation
             return $this->redirect(['action' => 'view', $id]);
         }
+    }  */
+
+    // ici on peut choisir/configuer notre msg d'erreur
+    public function delete($id) {
+
+        // si on est en post ou en delete, on fait l'action
+        if ($this->request->is(['post', 'delete'])) {
+            // on récupère l'élément ciblé
+            $movie = $this->Movies->get($id);
+
+            if($this->Movies->delete($movie)) {
+                $this->Flash->success('Supprimé');
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error('Suppression plantée');
+                // redirige vers la page de cette citation
+                return $this->redirect(['action' => 'view', $id]);
+            }
+        } else { // sinon on déclenche une erreur 400 parsonnalisée
+            throw new NotFoundException('Méthide interdite (c\'est pas beau de tricher)');
+        }
+        
     } 
 }

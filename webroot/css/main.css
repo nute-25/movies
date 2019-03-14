@@ -1,0 +1,131 @@
+html{
+    height: 100%;
+}
+body{
+    min-height: 100%;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 14px;
+}
+body {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* 250px + "largeur restante" */
+  grid-template-rows: 1fr;
+}
+header {
+  grid-column: 1; grid-row: 1;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+header h1 {
+    padding: 20px;
+    color: #fff;
+    background: #444;
+}
+header h1 a{
+    color: #fff;
+}
+main {
+  grid-column: 2; grid-row: 1;
+  padding: 20px;
+  position: relative;
+}
+nav > *{
+    padding: 10px;
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+}
+nav span{
+    font-style: italic;
+    font-size: 0.9rem;
+    border-top: 1px solid #ccc;
+}
+nav a.active{
+    color: #fff;
+    background: #444;
+}
+main > h1:first-child{
+    font-size: 2rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+main h1{
+    font-size: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+main h2{
+    font-size: 1.3rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+label,
+.label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+p,
+div.input{
+    margin-bottom: 20px;
+}
+button,
+.button{
+    text-decoration: none;
+    background: #2b67c6;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: none;
+}
+input,
+textarea{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+
+.message{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #66a1ff;
+    color: #000;
+    padding: 10px 15px;
+}
+.message.success{
+    background: #3aad44;
+}
+.message.error{
+    background: #cc2e2e;
+    color: #fff;
+}
+.message.hidden{
+    display: none;
+}
+
+figure{
+    position: relative;
+}
+figcaption{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background:rgba(0,0,0,.6);
+    color: #fff;
+    transition: all 0.5s;
+}
+figure:hover figcaption{
+    opacity: 0;
+}

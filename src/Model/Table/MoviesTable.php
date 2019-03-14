@@ -22,7 +22,6 @@ class MoviesTable extends Table {
             ->allowEmpty('director')
             ->maxLength('director', 300)
             ->allowEmpty('poster')
-            ->maxLength('poster', 40)
             ->allowEmpty('duration')
             ->allowEmpty('releasedate')
             ->allowEmpty('synopsis');

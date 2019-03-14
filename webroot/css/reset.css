@@ -1,0 +1,181 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, main {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, main {
+	display: block;
+}
+body {
+	line-height: 1.3;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+*{
+    box-sizing: border-box;
+}
+figure img{
+    display: block;
+    width: 100%;
+}
+.clearfix::after{
+    content:'';
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+
+
+.row {
+	clear: both;
+	padding: 15px;
+}
+[class*=col-] {
+	display: block;
+	float:left;
+	margin-left: 1.6%;
+}
+[class*=col-]:first-child {
+  margin-left: 0;
+}
+[class*=col-].marg-11{
+  margin-left: 93.134%;
+}
+[class*=col-].marg-10:first-child{
+  margin-left: 84.67%;
+}
+[class*=col-].marg-10{
+  margin-left: 86.27%;
+}
+[class*=col-].marg-9:first-child{
+  margin-left: 76.2%;
+}
+[class*=col-].marg-9{
+  margin-left: 77.8%;
+}
+[class*=col-].marg-8:first-child{
+  margin-left: 67.74%;
+}
+[class*=col-].marg-8{
+  margin-left: 62.34%;
+}
+[class*=col-].marg-7:first-child{
+  margin-left: 59.27%;
+}
+[class*=col-].marg-7{
+  margin-left: 60.87%;
+}
+[class*=col-].marg-6:first-child{
+  margin-left: 50.8%;
+}
+[class*=col-].marg-6{
+  margin-left: 52.4%;
+}
+[class*=col-].marg-5:first-child{
+  margin-left: 42.34%;
+}
+[class*=col-].marg-5{
+  margin-left: 43.94%;
+}
+[class*=col-].marg-4:first-child{
+  margin-left: 33.87%;
+}
+[class*=col-].marg-4{
+  margin-left: 35.47%;
+}
+[class*=col-].marg-3:first-child{
+  margin-left: 25.4%;
+}
+[class*=col-].marg-3{
+  margin-left: 27%;
+}
+[class*=col-].marg-2:first-child{
+  margin-left: 16.94%;
+}
+[class*=col-].marg-2{
+  margin-left: 18.54%;
+}
+[class*=col-].marg-1:first-child{
+  margin-left: 8.47%;
+}
+[class*=col-].marg-1{
+  margin-left: 10.07%;
+}
+.col-12 {
+	width: 100%;
+}
+.col-11 {
+  	width: 91.53%;
+}
+.col-10 {
+  	width: 83.06%;
+}
+.col-9 {
+  	width: 74.6%;
+}
+.col-8 {
+  	width: 66.13%;
+}
+.col-7 {
+  	width: 57.66%;
+}
+.col-6 {
+  	width: 49.2%;
+}
+.col-5 {
+  	width: 40.73%;
+}
+.col-4 {
+  	width: 32.26%;
+}
+.col-3 {
+  	width: 23.8%;
+}
+.col-2 {
+  	width: 15.33%;
+}
+.col-1 {
+  	width: 6.866%;
+}
+
+
+
+
+ 

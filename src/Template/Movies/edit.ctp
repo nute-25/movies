@@ -7,7 +7,10 @@
     <?= $this->Form->control('director', ['label' => 'Réalisateur']) ?>
     <!-- <?= $this->Form->control('poster') ?> -->
     <?= $this->Form->control('duration', ['label' => 'Durée (en minutes)']) ?>
-    <?= $this->Form->control('releasedate', ['label' => 'Date de sortie']) ?>
+    <div class="input date">
+        <label>Date de sortie</label>
+        <?= $this->Form->text('releasedate', ['label' => 'Date de sortie', 'type' => 'date', 'value'=> (!empty($movie->releasedate)) ? $movie->releasedate->i18nFormat('yyyy-MM-dd') : '']) ?>
+    </div>
     <?= $this->Form->control('synopsis', ['label' => 'Résumé']) ?>
     <?= $this->Form->button('Editer') ?>
 <?= $this->Form->end() ?>
