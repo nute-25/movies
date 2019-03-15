@@ -127,11 +127,15 @@ figcaption{
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     background:rgba(0,0,0,.6);
     color: #fff;
     transition: all 0.5s;
 }
-figure:hover figcaption{
-    opacity: 0;
+figcaption a{
+    background-color: rgb(164, 204, 182);
+    color: black;
+    text-decoration: none;
+    padding: 15px;
 }
+

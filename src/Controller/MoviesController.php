@@ -25,7 +25,7 @@ class MoviesController extends AppController {
         // recupère l'élement qui a l'id cherché
         $one = $this->Movies->get($id);
 
-        // cree la variable $citation pour la vue (elle contiendra la valeur de $one)
+        // cree la variable $movie pour la vue (elle contiendra la valeur de $one)
         $this->set('movie', $one);
     }
 
@@ -146,5 +146,90 @@ class MoviesController extends AppController {
 
         // redirige vers la vue qui va bien
         return $this->redirect(['action' => 'view', $id]);
+    }
+
+
+    public function editImage($id) {
+        $movie = $this->Movies->get($id);
+        $old_poster = $movie->poster;
+
+        // on autorise la methode put pour la modification
+        if ($this->request->is(['post', 'put'])) {
+            // en ne stockant pas le patchEntity dans une variable, il redonne seulement les champs qui ont été modifiés
+            $this->Movies->patchEntity($movie, $this->request->getData());
+
+            // si le fichier correspond à l'un des types autorisés
+            if(!empty($this->request->getData()['poster']['name']) && in_array($this->request->data['poster']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
+                
+                // recupere l'extension qui était utilisée
+                $ext = pathinfo($this->request->getData('poster')['name'], PATHINFO_EXTENSION);
+                // création du nouveau nom
+                $name = 'a-'.rand(0,3000).'-'.time().'.'.$ext;
+                // reconstitution du chemin global du fichier
+                $adress = WWW_ROOT.'/data/posters/'.$name;
+                // valeur a enregistrer dans la base
+                $movie->poster = $name;
+                // on le deplace de la mémoire temporaire vers l'emplacement souhaité
+                move_uploaded_file($this->request->getData('poster')['tmp_name'], $adress);
+
+                if($this->Movies->save($movie)) {
+
+                    // suppresion de l'ancien poster
+                    // on recré le chemin vers le fichier
+                    $old_address = WWW_ROOT.'/data/posters/'.$old_poster;
+                    //si le nom de fichier n'est pas vide et que le fichier existe
+                    if (!empty($old_poster) && file_exists($old_address)) {
+                        // supprime le fichier en local
+                        unlink($old_address);
+                    }
+    
+                    $this->Flash->success('Ok');
+                    // redirige vers la page de cette citation
+                    return $this->redirect(['action' => 'view', $movie->id]);
+                } 
+
+            } else {
+                $movie->poster = $old_poster;
+                $this->Flash->error('Ce format de fichier n\'est pas autorisé');
+            }
+ 
+        }
+        //envoie la variable à la vue
+        $this->set(compact('movie'));
+    }
+
+
+    public function deleteImage($id) {
+        // si on est en post, on fait l'action
+        if ($this->request->is('post')) {
+            // on récupère l'élément ciblé
+            $movie = $this->Movies->get($id);
+            $poster = $movie->poster;
+
+            // suppresion de l'ancien poster
+            // on recré le chemin vers le fichier
+            $old_address = WWW_ROOT.'/data/posters/'.$poster;
+            //si le nom de fichier n'est pas vide et que le fichier existe
+            if (!empty($poster) && file_exists($old_address)) {
+                // supprime le fichier en local
+                unlink($old_address);
+            }
+
+            $movie->poster = null;
+
+            if($this->Movies->save($movie)) {
+                $this->Flash->success('Image supprimé');
+                // redirige vers la page de cette citation
+                return $this->redirect(['action' => 'view', $movie->id]);
+            } 
+            else {
+                $this->Flash->error('Suppression plantée');
+                // redirige vers la page de cette citation
+                return $this->redirect(['action' => 'view', $movie->id]);
+            }
+        } else { // sinon on déclenche une erreur 400 parsonnalisée
+            throw new NotFoundException('Access denied, try again)');
+        }
+
     }
 }

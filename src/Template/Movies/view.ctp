@@ -36,9 +36,19 @@
                 <!-- default.jpg se trouve dans webroot/img -->
                 <?= $this->HTML->image('default.jpg', ['alt' => 'Visuel non disponible' ]) ?>
         <?php } ?>
+        <figcaption>
+                Affiche de 
+                <?= $movie->title ?>
+                <p>
+                        <?= $this->HTML->link('Modifier l\'affiche', ['action' => 'editImage', $movie->id]) ?>
+                </p>
+                <?php if (!empty($movie->poster)) { 
+                        echo $this->Form->postLink('Supprimer l\'affiche', ['action' => 'deleteImage', $movie->id], ['confirm' => 'Etes-vous sûr de vouloir supprimer cette affiche ?']);
+                } ?>
         
+        </figcaption>
 </figure>
 
 <p><?= $this->HTML->link('Editer', ['action' => 'edit', $movie->id]) ?></p>
 <p><?= $this->HTML->link('Modifier l\'affiche', ['action' => 'editImage', $movie->id]) ?></p>
-<?= $this->Form->postlink('Supprimer', ['action' => 'delete', $movie->id], ['confirm' => 'Etes-vous sûr de vouloir supprimer ce film ?']); ?>
+<?= $this->Form->postLink('Supprimer', ['action' => 'delete', $movie->id], ['confirm' => 'Etes-vous sûr de vouloir supprimer ce film ?']); ?>
