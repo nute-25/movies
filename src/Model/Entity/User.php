@@ -5,6 +5,7 @@ namespace App\Model\Entity;
 
 // équivaut à un import
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 class User extends Entity {
     
@@ -14,4 +15,11 @@ class User extends Entity {
         'id' => false
     ];
 
+    protected function _setPassword($value) {
+        if (strlen($value)) {
+            $hasher = new DefaultPasswordHasher();
+
+            return $hasher->hash($value);
+        }
+    }
 }

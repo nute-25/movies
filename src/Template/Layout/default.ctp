@@ -26,6 +26,9 @@ $cakeDescription = 'Gestionnaire de films';
             <?= $this->Html->link('Liste des films', ['controller' => 'movies', 'action' => 'index'], [ 'class' => ($this->templatePath === 'Movies' && $this->template === 'index') ? 'active' : '']) ?>
             <?= $this->Html->link('Ajouter un film', ['controller' => 'movies', 'action' => 'add'], [ 'class' => ($this->templatePath === 'Movies' && $this->template === 'add') ? 'active' : '']) ?>
             <?= $this->Html->link('Afficher aléatoirement un film', ['controller' => 'movies', 'action' => 'random'], [ 'class' => ($this->templatePath === 'Movies' && $this->template === 'view') ? 'active' : '']) ?>
+            <?= $this->Html->link('Liste des utilisateurs', ['controller' => 'users', 'action' => 'index'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'index') ? 'active' : '']) ?>
+            <?= $this->Html->link('Se connecter', ['controller' => 'users', 'action' => 'login'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'login') ? 'active' : '']) ?>
+            <?= $this->Html->link('Créer un compte utilisateur', ['controller' => 'users', 'action' => 'add'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'add') ? 'active' : '']) ?>
         </nav>
     </header>
     <main>

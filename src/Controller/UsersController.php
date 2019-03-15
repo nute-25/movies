@@ -8,10 +8,17 @@ use Cake\Http\Exception\NotFoundException;
 
 class UsersController extends AppController {
 
+    public function initialize() {
+        parent::initialize();
+        //ajoute l'action 'add' de ce controller à la liste des actions autorisées sans être connecté
+        $this->Auth->allow(['add']);
+    }
+
     // affiche le contenu de la BDD
     public function index() {
         // $this représente l'app de manière générale
-        $u = $this->Users->find();
+        // affichage des utilisateur classé par pseudo
+        $u = $this->Users->find()->order('pseudo');
         // on transmet le contenu stocké dans $q à la view
         $this->set(compact('u'));
     }
@@ -35,10 +42,25 @@ class UsersController extends AppController {
             }
 
             // [pour qu'on arrive ici, la sauvegarde a planté] on gueule sur l'internaute
-            $this->Flash->error('Planté');
+            $this->Flash->error('Try again');
         }
 
         //envoie la variable à la vue
         $this->set(compact('new'));
+    }
+
+    public function login() {
+        if ($this->request->is('post')) {
+            // essaye de matcher avec un utilisateur de la base
+            $user = $this->Auth->identify();
+            // si on trouve qu'un qui match
+            if ($user) {
+                // on le memorise en session
+                $this->Auth->setUser($user);
+                //on redirige vers la page d'avant
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
+        }
     }
 }

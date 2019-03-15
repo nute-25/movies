@@ -19,8 +19,7 @@ class UsersTable extends Table {
     public function validationDefault(Validator $v) {
         $v->notEmpty('pseudo')
             ->maxLength('pseudo', 50)
-            ->notEmpty('password')
-            ->maxLength('password', 200);
+            ->notEmpty('password');
         return $v;
     }
 }

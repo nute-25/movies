@@ -46,6 +46,23 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
 
+        $this->loadComponent('Auth', [
+            'authentificate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'pseudo',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+
+        $this->Auth->allow(['display', 'index', 'view', 'random']);
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
