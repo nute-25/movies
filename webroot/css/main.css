@@ -120,6 +120,7 @@ textarea{
 
 figure{
     position: relative;
+    width: 525px;
 }
 figcaption{
     position: absolute;

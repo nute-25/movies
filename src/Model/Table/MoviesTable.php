@@ -12,6 +12,7 @@ class MoviesTable extends Table {
         // demande à Cake de gérer les created et modified
         // addBehavior fait le lien avec timestamp existant déjà dans cake
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Image');
     }
 
     // ennonce les règles de validation pour ce type de data

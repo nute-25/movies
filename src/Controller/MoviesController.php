@@ -124,7 +124,7 @@ class MoviesController extends AppController {
             // on récupère l'élément ciblé
             $movie = $this->Movies->get($id);
 
-            if($this->Movies->delete($movie)) {
+            if ($this->Movies->delete($movie)) {
                 $this->Flash->success('Supprimé');
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -133,7 +133,7 @@ class MoviesController extends AppController {
                 return $this->redirect(['action' => 'view', $id]);
             }
         } else { // sinon on déclenche une erreur 400 parsonnalisée
-            throw new NotFoundException('Méthide interdite (c\'est pas beau de tricher)');
+            throw new NotFoundException('Méthode interdite (c\'est pas beau de tricher)');
         }
         
     } 

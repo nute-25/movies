@@ -40,4 +40,5 @@
 </figure>
 
 <p><?= $this->HTML->link('Editer', ['action' => 'edit', $movie->id]) ?></p>
+<p><?= $this->HTML->link('Modifier l\'affiche', ['action' => 'editImage', $movie->id]) ?></p>
 <?= $this->Form->postlink('Supprimer', ['action' => 'delete', $movie->id], ['confirm' => 'Etes-vous sûr de vouloir supprimer ce film ?']); ?>
