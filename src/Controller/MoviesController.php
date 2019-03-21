@@ -9,7 +9,6 @@ use Cake\Http\Exception\NotFoundException;
 class MoviesController extends AppController {
 
     public function hello() {
-
     }
 
     // en général index() affiche le contenu de la BDD
@@ -22,8 +21,11 @@ class MoviesController extends AppController {
     }
 
     public function view($id) {
-        // recupère l'élement qui a l'id cherché
-        $one = $this->Movies->get($id);
+        // recupère les infos du film qui a l'id, avec en plus ses commentaires
+        // contain liaison en cake possible parce qu'on a déclaré la clef étrangère
+        $one = $this->Movies->get($id, [
+            'contain' => ['Comments']
+        ]);
 
         // cree la variable $movie pour la vue (elle contiendra la valeur de $one)
         $this->set('movie', $one);

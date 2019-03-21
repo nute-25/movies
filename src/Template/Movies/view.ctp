@@ -1,4 +1,6 @@
-<?php //file : src/Templates/Quotes/vue.ctp ?>
+<?php //file : src/Templates/Quotes/vue.ctp 
+var_dump($movie); ?>
+
 
 <h1>Film</h1>
 <p><?= $movie->title ?></p>
@@ -52,3 +54,14 @@
 <p><?= $this->HTML->link('Editer', ['action' => 'edit', $movie->id]) ?></p>
 <p><?= $this->HTML->link('Modifier l\'affiche', ['action' => 'editImage', $movie->id]) ?></p>
 <?= $this->Form->postLink('Supprimer', ['action' => 'delete', $movie->id], ['confirm' => 'Etes-vous sûr de vouloir supprimer ce film ?']); ?>
+
+<h2>Commentaire(s)</h2>
+<?php if(empty($movie->comments))
+        echo '<p>Il n\'y a pas de commentaire sur ce film</p>';
+else foreach($movie->comments as $key => $value) { ?>
+        <article>
+                <p class="infos"><?= $value->user_id ?>
+                , <?= $value->created->i18nFormat('dd/MM/yyyy HH:mm:ss') ?> : <?= $value->grade ?></p>
+                <p><?= $value->content ?></p>
+        </article>
+<?php } ?>

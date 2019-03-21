@@ -12,6 +12,11 @@ class UsersTable extends Table {
         // demande à Cake de gérer les created et modified
         // addBehavior fait le lien avec timestamp existant déjà dans cake
         $this->addBehavior('Timestamp');
+
+        // un film peut avoir plusieurs commentaires (liés par movie_id)
+        $this->hasMany('Comments', [
+            'foreignKey' => 'user_id'
+        ]);
     }
 
     // ennonce les règles de validation pour ce type de data

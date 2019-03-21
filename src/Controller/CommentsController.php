@@ -4,4 +4,6 @@
 // espace logique auquel appartient le controller
 namespace App\Controller;
 
-class CommentsController extends AppController {}
+class CommentsController extends AppController {
+    
+}
