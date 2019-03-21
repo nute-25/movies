@@ -63,4 +63,11 @@ class UsersController extends AppController {
             $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
         }
     }
+
+    public function logout() {
+        $this->Flash->success('A bientôt');
+        // return $this->redirect($this->Auth->logout());
+        $this->Auth->logout();
+        return $this->redirect(['controller' => 'Movies', 'action' => 'index']);
+    }
 }

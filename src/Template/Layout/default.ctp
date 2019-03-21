@@ -27,14 +27,30 @@ $cakeDescription = 'Gestionnaire de films';
             <?= $this->Html->link('Ajouter un film', ['controller' => 'movies', 'action' => 'add'], [ 'class' => ($this->templatePath === 'Movies' && $this->template === 'add') ? 'active' : '']) ?>
             <?= $this->Html->link('Afficher aléatoirement un film', ['controller' => 'movies', 'action' => 'random'], [ 'class' => ($this->templatePath === 'Movies' && $this->template === 'view') ? 'active' : '']) ?>
             <?= $this->Html->link('Liste des utilisateurs', ['controller' => 'users', 'action' => 'index'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'index') ? 'active' : '']) ?>
-            <?= $this->Html->link('Se connecter', ['controller' => 'users', 'action' => 'login'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'login') ? 'active' : '']) ?>
-            <?= $this->Html->link('Créer un compte utilisateur', ['controller' => 'users', 'action' => 'add'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'add') ? 'active' : '']) ?>
+            <?php   // si l'utilisateur est non connecté
+                if($auth->user() === NULL) {
+                    echo $this->Html->link('Se connecter', ['controller' => 'users', 'action' => 'login'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'login') ? 'active' : '']);
+                    echo $this->Html->link('Créer un compte utilisateur', ['controller' => 'users', 'action' => 'add'], [ 'class' => ($this->templatePath === 'Users' && $this->template === 'add') ? 'active' : '']);
+                }
+            ?>
+            <?php   // si l'utilisateur est connecté
+                if($auth->user() !== NULL) {
+                    echo $this->Html->link('Se deconnecter', ['controller' => 'users', 'action' => 'logout']);
+                }
+            ?>
         </nav>
+        <?php   // si l'utilisateur est connecté
+                if($auth->user())
+                    echo '<p class="hello">Bonjour '.$auth->user('pseudo').'</p>';
+        ?>
     </header>
     <main>
         <!-- <?= var_dump($this->request->params['action']) ?> -->
         <!-- Affiche les messages pour l'utilisateur (et les vides de la mémoire) -->
-        <?= $this->Flash->render() ?>
+        <div class="messages">
+            <?= $this->Flash->render() ?>
+        </div>
+        <!-- <?php var_dump($auth->user()); ?> -->
         <!-- affiche le contenu de cette page -->
         <?= $this->fetch('content') ?>
     </main>

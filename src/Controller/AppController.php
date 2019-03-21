@@ -46,8 +46,10 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
 
+        // Auth composant déjà programmé dans cake, on le personnalise
+        // username et password viennent du module de cake alors que pseudo et password sont des colonnes dans la bdd
         $this->loadComponent('Auth', [
-            'authentificate' => [
+            'authenticate' => [
                 'Form' => [
                     'fields' => [
                         'username' => 'pseudo',
@@ -59,14 +61,22 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
+            // action vers laquelle on sera redirigé après la connexion
             'unauthorizedRedirect' => $this->referer()
         ]);
 
+        // liste des actions visibles sans être connecté
         $this->Auth->allow(['display', 'index', 'view', 'random']);
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+    }
+
+    // sera appelé avant l'affichage d'une view (peu importe laquelle)
+    public function beforeRender(Event $event) {
+        // transmet les informations de l'internaute (est-il connecté ou pas ?) à la vue dans une variable $auth
+        $this->set('auth', $this->Auth);
     }
 }
