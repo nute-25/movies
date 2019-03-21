@@ -21,14 +21,21 @@ class MoviesController extends AppController {
     }
 
     public function view($id) {
-        // recupère les infos du film qui a l'id, avec en plus ses commentaires
+        // recupère les infos du film qui a l'id, avec en plus ses commentaires (et les infos de l'auteur de chaque commentaire)
         // contain liaison en cake possible parce qu'on a déclaré la clef étrangère
         $one = $this->Movies->get($id, [
-            'contain' => ['Comments']
+            'contain' => ['Comments.Users']
         ]);
 
+        $query = $this->Movies->Comments->find()->where(['movie_id' => $id]);
+        $query->select(['moyenne' => $query->func()->avg('grade')]);
+
+        // on crée une entité vide pour un commentaire
+        $c = $this->Movies->Comments->newEntity();
+
         // cree la variable $movie pour la vue (elle contiendra la valeur de $one)
-        $this->set('movie', $one);
+        // $this->set('movie', $one);
+        $this->set(['movie' => $one, 'comment' => $c, 'query' => $query->first()]);
     }
 
     

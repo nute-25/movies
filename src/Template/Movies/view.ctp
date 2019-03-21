@@ -55,13 +55,39 @@ var_dump($movie); ?>
 <p><?= $this->HTML->link('Modifier l\'affiche', ['action' => 'editImage', $movie->id]) ?></p>
 <?= $this->Form->postLink('Supprimer', ['action' => 'delete', $movie->id], ['confirm' => 'Etes-vous sûr de vouloir supprimer ce film ?']); ?>
 
+<h2>Notation générale</h2>
+<?php echo $query->moyenne ?>
+
 <h2>Commentaire(s)</h2>
 <?php if(empty($movie->comments))
         echo '<p>Il n\'y a pas de commentaire sur ce film</p>';
 else foreach($movie->comments as $key => $value) { ?>
         <article>
-                <p class="infos"><?= $value->user_id ?>
+                <p class="infos"><?= $value->user->pseudo ?>
                 , <?= $value->created->i18nFormat('dd/MM/yyyy HH:mm:ss') ?> : <?= $value->grade ?></p>
                 <p><?= $value->content ?></p>
         </article>
 <?php } ?>
+
+
+
+<?php   // si l'utilisateur est connecté
+        if($auth->user()) {?>
+                <h2>Ajouter un commentaire</h2>
+                <?php /* pour creer le formulaire, on a besoin de :
+                        - l'entitié vide ($comment)
+                        - de lui dire sur quelle action aller pour traiter les données (puisque ce n'est pas le même fichier). 
+                        Ici ce sera l'action add du controller comments */
+                ?>
+                <?= $this->Form->create($comment, ['url' => '/comments/add']) ?>
+                        <?php 
+                                echo $this->Form->control('content'); 
+                                echo $this->Form->hidden('movie_id', ['value' => $movie->id]);
+                                echo $this->Form->control('grade'); 
+                        ?>
+                        <?= $this->Form->button('Ajouter'); ?>
+                <?= $this->Form->end() ?>
+        <?php }
+        else { ?>
+              <p>Vous devez être connecté pour pouvoir commenter : <?= $this->HTML->link('se connecter', ['controller' => 'users', 'action' => 'login']) ?></p>
+        <?php } ?>
